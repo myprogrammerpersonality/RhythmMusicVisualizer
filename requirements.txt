@@ -2,3 +2,4 @@ librosa
 matplotlib
 numpy
 soundfile
+scipy
