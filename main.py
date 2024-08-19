@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_spectrogram(file_path, sample_rate, freq_lines):
+def plot_spectrogram(file_path, sample_rate, freq_lines, duration):
     # Load the audio file using librosa
     start_time = time.time()
-    y, sr = librosa.load(file_path, sr=sample_rate)
+    y, sr = librosa.load(file_path, duration=duration, sr=sample_rate)
     logging.info(f"Loading audio took {time.time() - start_time} seconds")
 
     # Generate the spectrogram
@@ -36,6 +36,7 @@ def plot_spectrogram(file_path, sample_rate, freq_lines):
 def main():
     parser = argparse.ArgumentParser(description="Audio Spectrogram Plotter")
     parser.add_argument("file_path", help="Path to the audio file")
+    parser.add_argument("--duration", type=int, default=None, help="only load up to this much audio (in seconds)")
     parser.add_argument("--sample_rate", type=int, default=None, help="Sample rate for audio file")
     parser.add_argument("--freq_lines", nargs='+', type=int,
                         default=[132, 174, 196, 213, 233, 261, 286, 310, 319, 349, 349, 391, 427,
@@ -44,7 +45,7 @@ def main():
 
     args = parser.parse_args()
 
-    plot_spectrogram(args.file_path, args.sample_rate, args.freq_lines)
+    plot_spectrogram(args.file_path, args.sample_rate, args.freq_lines, args.duration)
 
 
 if __name__ == "__main__":
