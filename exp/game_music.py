@@ -2,6 +2,7 @@ import pygame
 import librosa
 import sys
 import time
+import numpy as np
 
 # path
 file_path = "../../data/be_soo.mp3"
@@ -11,6 +12,9 @@ duration = 60
 y, sr = librosa.load(file_path, duration=duration)
 y_harm, y_perc = librosa.effects.hpss(y)
 
+# Apply a moving window average to smooth the percussive component
+window_size = 100  # Define the size of the moving window
+smoothed_y_perc = np.convolve(y_perc, np.ones(window_size)/window_size, mode='valid')
 
 # Initialize Pygame
 pygame.init()
@@ -21,10 +25,10 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Dynamic Circle")
 
 # Define the array of radii (floats)
-radii = [i * 10000 for i in y_perc]
+radii = [i * 10000 for i in smoothed_y_perc]
 
 # Define the time interval (in seconds) between radius updates
-interval = 1 / sr
+interval = (1 / sr) * window_size  # Update the interval according to the window size
 
 # Set the starting radius index
 radius_index = 0
