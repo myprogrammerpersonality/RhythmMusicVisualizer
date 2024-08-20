@@ -56,7 +56,7 @@ while running and radius_index < len(radii):
     time.sleep(interval)
 
     # Move to the next radius in the array
-    radius_index += 1
+    radius_index += window_size
 
 # Quit Pygame
 pygame.quit()

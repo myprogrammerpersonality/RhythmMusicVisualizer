@@ -11,13 +11,20 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Usage
+## Usage For Freq Decomposition
 
 ```bash
 python main.py /path/to/audio/file --sample_rate 44100
 ```
 
-## Example
+## Usage for Music Rythm Visualization
+Set the variables in the bash file before running this command.
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+## Examples For Freq Decomposition
 
 ```bash
 # default sample rate is None, which means the sample rate of the audio file
